@@ -38,13 +38,14 @@ on:
       aks_resource_group:
         required: true
         type: string
-  env:
-  # ACR Login Server (e.g., myregistry.azurecr.io)
-  # This needs to be set as a GitHub Repository Secret
-    ACR_LOGIN_SERVER: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
-  # Dynamically generate image tags based on Git SHA and GitHub Run ID
-  # This provides unique, traceable tags for each image build
-    IMAGE_TAG: ${{ github.sha }}
+env:
+    # ACR Login Server (e.g., myregistry.azurecr.io)
+    # This needs to be set as a GitHub Repository Secret
+  ACR_LOGIN_SERVER: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
+    # Dynamically generate image tags based on Git SHA and GitHub Run ID
+    # This provides unique, traceable tags for each image build
+  IMAGE_TAG: ${{ github.sha }}
+
 jobs:
   deploy_frontend:
     runs-on: ubuntu-latest
