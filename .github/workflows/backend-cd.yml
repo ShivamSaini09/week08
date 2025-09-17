@@ -58,6 +58,12 @@ jobs:
           kubectl apply -f secrets.yaml
           kubectl apply -f product-db.yaml
           kubectl apply -f order-db.yaml
+      
+      - name: Update image tag in deployment YAML
+        run: |
+          sed -i "s|acrweek08.azurecr.io/product_service:.*|acrweek08.azurecr.io/product_service:${{ env.IMAGE_TAG }}|g" k8s/product-service.yaml
+          sed -i "s|acrweek08.azurecr.io/order_service:.*|acrweek08.azurecr.io/order_service:${{ env.IMAGE_TAG }}|g" k8s/order-service.yaml
+
 
       - name: Deploy Backend Microservices (Product, Order)
         run: |
@@ -66,17 +72,17 @@ jobs:
           kubectl apply -f product-service.yaml
           kubectl apply -f order-service.yaml
         
-      - name: Deploy Product Service with updated image
-        run: |
-          kubectl set image deployment/product-service-w08e1 \
-            product-service-container=${{ env.ACR_LOGIN_SERVER }}/product_service:${{ env.IMAGE_TAG }} \
-            --namespace=default
+      # - name: Deploy Product Service with updated image
+      #   run: |
+      #     kubectl set image deployment/product-service-w08e1 \
+      #       product-service-container=${{ env.ACR_LOGIN_SERVER }}/product_service:${{ env.IMAGE_TAG }} \
+      #       --namespace=default
 
-      - name: Deploy Order Service with updated image
-        run: |
-          kubectl set image deployment/order-service-w08e1 \
-            order-service-container=${{ env.ACR_LOGIN_SERVER }}/order_service:${{ env.IMAGE_TAG }} \
-            --namespace=default
+      # - name: Deploy Order Service with updated image
+      #   run: |
+      #     kubectl set image deployment/order-service-w08e1 \
+      #       order-service-container=${{ env.ACR_LOGIN_SERVER }}/order_service:${{ env.IMAGE_TAG }} \
+      #       --namespace=default
       
       - name: Wait for Backend LoadBalancer IPs
         run: |
