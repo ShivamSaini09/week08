@@ -24,7 +24,7 @@ env:
   ACR_LOGIN_SERVER: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
   # Dynamically generate image tags based on Git SHA and GitHub Run ID
   # This provides unique, traceable tags for each image build
-  IMAGE_TAG: ${{ github.sha }}-${{ github.run_id }}
+  IMAGE_TAG: ${{ github.sha }}
 
 jobs:
   build_and_push_frontend:
@@ -61,10 +61,10 @@ jobs:
             workflow_id: 'frontend-cd.yml',
             ref: 'main',
             inputs: {
-              product_api_ip: '<product_service_ip>',
-              order_api_ip: '<order_service_ip>',
-              aks_cluster_name: '<aks_cluster_name>',
-              aks_resource_group: '<resource_group>'
+              product_api_ip: 'http://4.198.191.19:8000/',
+              order_api_ip: 'http://104.209.87.104:8001/',
+              aks_cluster_name: 'aksweek8',
+              aks_resource_group: 'week9'
             }
           });
 
