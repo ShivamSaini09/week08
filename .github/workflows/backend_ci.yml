@@ -153,9 +153,9 @@ jobs:
             workflow_id: 'backend-cd.yml',
             ref: 'main',
             inputs: {
-              aks_cluster_name: '<aks_cluster_name>',
-              aks_resource_group: '<resource_group>',
-              aks_acr_name: '<acr_name>'
+              aks_cluster_name: 'aksweek8',
+              aks_resource_group: 'week9',
+              aks_acr_name: 'acrweek08'
             }
           })
 
