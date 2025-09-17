@@ -22,7 +22,7 @@ env:
   ACR_LOGIN_SERVER: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
   # Dynamically generate image tags based on Git SHA and GitHub Run ID
   # This provides unique, traceable tags for each image build
-  IMAGE_TAG: ${{ github.sha }}-${{ github.run_id }}
+  IMAGE_TAG: ${{ github.sha }}
 jobs:
   deploy_backend:
     runs-on: ubuntu-latest
